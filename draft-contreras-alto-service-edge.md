@@ -19,28 +19,24 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "Use of ALTO for Determining Service Edge"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-contreras-alto-service-edge-latest
+ipr: trust200902
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
-number:
-date:
-consensus: true
-v: 3
 area: AREA
-workgroup: WG Working Group
+workgroup: ALTO
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - ALTO
+ - compute
+ - edge computing
 venue:
   group: WG
   type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
+  mail: alto@ietf.org
+  arch: https://mailarchive.ietf.org/arch/browse/alto/
+  github: giralt/draft-contreras-alto-service-edge
   latest: https://example.com/LATEST
 
 author:
