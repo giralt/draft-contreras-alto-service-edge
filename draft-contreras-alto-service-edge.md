@@ -192,8 +192,8 @@ of functions. (Here certification means the assessment
 of the expected behavior for a given function
 according to the level of resources determined by
 a given flavor.) An evolution of this initiative is
-Anuket {{Anuket}}, which works to consolidate 
-different architectures for well-known tools 
+Anuket {{Anuket}}, which works to consolidate
+different architectures for well-known tools
 such as OpenStack and Kubernetes.
 
 Taking CNTT as an example, the flavors or instances
@@ -201,7 +201,7 @@ can be characterized according to:
 
 *  *Type of instance (T):* The types of instances
 are characterized as B (Basic), or N (Network Intensive).
-The latter includes network acceleration extensions 
+The latter includes network acceleration extensions
 for offloading network intensive operations to hardware.
 
 * *Interface Option (I):* It refers to the associated
@@ -217,11 +217,11 @@ disk, and bandwidth for the management interface.
 Used to request specific acceleration capabilities for
 improving the performance of the application.
 
-The naming convention of an instance is thus encoded as T.I.F.S.A.
+The naming convention of an instance is thus encoded as TIFSA.
 
 # Usage of ALTO for Service Placement
 
-ALTO can assist the deployment of a service on a 
+ALTO can assist the deployment of a service on a
 specific flavor or instance of
 the computing substrate by taking into consideration
 network cost metrics.
@@ -231,10 +231,10 @@ such as availability of resources, unitary cost
 of those resources, etc.
 Nevertheless, the function or application to be
 deployed on top of a given flavor must also be
-interconnected outside the computing 
+interconnected outside the computing
 environment where it is deployed,
 therefore requiring the necessary network
-resources to satisfy application performance 
+resources to satisfy application performance
 requirements such as bandwidth or latency.
 
 The objective then is to leverage ALTO to
@@ -253,7 +253,7 @@ to be consumed. Such kind of catalogue could be
 communicated to ALTO or even incorporated to it.
 
 ALTO server queries are required to support
-T.I.F.S.A encoding in order to retrieve proper
+TIFSA encoding in order to retrieve proper
 maps from ALTO. Additionally, filtered queries
 for particular characteristics of a flavor
 could also be supported.
@@ -263,38 +263,37 @@ could also be supported.
 It is required to associate the location of the
 available instances with topological information
 to allow ALTO construct the overall map. The
-expectation is to manage the network and
-cloud capabilities by the same entity, handling
-both network and compute abstractions jointly,
-producing an integrated map. While this can be
-straightforward when an ISP own both the network
-and the cloud infrastructure, it could require
-multiple administrative domains to interwork for
-composing the integrated map. Details on potential
-scenarios will be provided in future versions
-of the document.
+expectation is that the management of the network and
+cloud capabilities will be performed by the same entity,
+producing an integrated map to handle both network and
+compute abstractions jointly. While this can be
+straightforward when an ISP owns both the network
+and the cloud infrastructure, it can in general require
+collaboration between multiple administrative domains.
+Details on potential scenarios will be provided
+in future versions of this document.
 
-At this stage four potential solutions could be
+At this stage, four potential solutions could be
 considered:
 
 * To leverage (and possibly extend)
 {{I-D.ietf-teas-sf-aware-topo-model}} for
 disseminating topology information together
-with notion of function location (that would
+with the notion of function location (that would
 require to be adapted to the existence of available
 compute capabilities). A recent effort in this
 direction can be found in
 {{I-D.ietf-teas-sf-aware-topo-model}}.
 
 * To extend BGP-LS {{RFC7752}},
-which is already considered as mechanism for
+which is already considered as a mechanism for
 feeding topology information in ALTO, in order
 to also advertise computing capabilities
 as well.
 
 * To combine information from the infrastructure
 profiles catalogue with topological information
-by leveraging on the IP prefixes allocated to
+by leveraging the IP prefixes allocated to
 the gateway providing connectivity to the NFVI PoP.
 
 * To integrate with Cloud Infrastructure
@@ -324,18 +323,18 @@ usage of ALTO for determining service edges.
 {: #EdgeArchitecture title="Service Edge Information Exchange." }
 
 In order to select the optimal edge server
-from both the network perspective (e.g.,
-the one showing better path cost) and cloud
-capabilities (e.g. in terms of processing
-capabilities, available RAM, storage capacity,
-etc), it is needed to see an edge server as
+from both the network (e.g.,
+the path with lower latency and/or higher bandwidth)
+and the cloud perspectives (e.g., number of CPUs/GPUs,
+available RAM, storage capacity, etc),
+there is a need to see the edge server as
 both an IP entity (as in {{RFC7285}})
 and an ANE entity (as in {{RFC9275}}).
 
-Currently there is no way (neither in {{RFC9275}} nor
+Currently there is no mechanism (neither in {{RFC9275}} nor
 {{RFC9240}} to see the same edge server as an entity
-in both domains. The design of ALTO however is
-flexible enough to allow extensions to indicate
+in both domains. The design of ALTO, however,
+allows extensions that could be used to identify
 that an entity can be defined in several domains.
 These different domains and their related properties
 can be specified in extended ALTO property maps,
@@ -351,52 +350,48 @@ compute capabilities in ALTO Maps.
 In particular, ALTO Entity Property Maps defined in
 {{RFC9240}} can be extended. {{RFC9240}} generalizes
 the concept of endpoint properties to domains of other
-entities through property maps. Entities  can be
+entities through property maps. Entities can be
 defined in a wider set of entity domains such as IPv4,
 IPv6, PID, AS, ISO3166-1 country codes or ANE.
-RFC 9240 in addition specifies how properties can be
+In addition, RFC 9240 specifies how properties can be
 defined on entities of each of these domains.
 
 ## Example of Entity Definition in Different Domains
 
-First, as many applications do neot necessarily
-need both compute and networking information,
-it is fine to keep separate entity domains with
-their related relevant properties.
+First, as there can be applications that do not
+necessarily need both compute and networking information,
+it is fine to keep the entity domains separate, each with
+their own native properties.
 However, some applications need information
-on both topics and a scalable and flexible
+on both topics, and a scalable and flexible
 solution consists in defining an ALTO property
 type, that:
 
-* indicates that an entity can be defined in
-several domains,
+* Indicates that an entity can be defined in
+several domains;
 
-* specifies, for an entity, the other domains
+* Specifies, for an entity, the other domains
 where this entity is defined.
 
-The following is an example where property
-"entity domain mapping" lists the other
-domains in which an entity is defined.
-This property type should be
-usable in all entity domains types.
-
-One possible way, for instance, can
-be to introduce entity properties that
+For instance, one possible approach is to
+introduce entity properties that
 list other entity domains where an
 edge server is identified. This property
 type should be usable in all entity
-domains types.
+domains types. The following provides an
+example where the property "entity domain mapping"
+lists the other domains in which an entity is defined.
 
-Suppose an edge server is identified:
+Suppose an edge server is identified as follows:
 
-* in the IPV4 domain, with an IP address, e.g. ipv4:1.2.3.4
+* In the IPV4 domain, with an IP address, e.g., ipv4:1.2.3.4;
 
-* in the ANE domain, with an identifier, e.g. ane:DC10-HOST1
+* In the ANE domain, with an identifier, e.g., ane:DC10-HOST1.
 
 To get information on this edge server as an
 entity in the "ipv4" entity domain, an ALTO
-client queries the properties "pid" and
-"entity-domain-mappings" and gets a response as follows:
+client can query the properties "pid" and
+"entity-domain-mappings" and obtain a response as follows:
 
     POST /propmap/lookup/dc-ip HTTP/1.1
     Host: alto.example.com
@@ -424,8 +419,8 @@ client queries the properties "pid" and
 
   To get information on this edge server as an
   entity in the "ane" entity domain, an ALTO
-  client queries the properties "entity-domain-mappings"
-  and "network-address" and gets a response as follows:
+  client can query the properties "entity-domain-mappings"
+  and "network-address" and obtain a response as follows:
 
     POST /propmap/lookup/dc-ane HTTP/1.1
     Host: alto.example.com
@@ -455,7 +450,7 @@ as an entity with a network address, it knows
 that it can see the server as an ANE on which
 it can query relevant properties.
 
-Further elaboration will be provided in next
+Further elaboration will be provided in future
 versions of this document.
 
 ## Definition of Flavors in ALTO Property Map
@@ -465,22 +460,21 @@ generalize the concept of endpoint properties
 to domains of other entities through
 property maps. The term "flavor" or "instance"
 refers to an abstracted set of computing
-resources, with well specified properties on
-their capabilities. Capabilities are typically
-CPU, RAM, Storage. So a flavor can be seen as
-an ANE, with properties declined in terms for
-example of TIFSA. A flavor or instance
+resources, with well-specified properties such as
+CPU, RAM and Storage. Thus, a flavor can be
+seen as an ANE, with properties defined in terms
+of TIFSA. A flavor or instance
 is a group of 1 or more elements that can be
 reached via one or more network addresses. So
 an instance can be also be seen as a PID that
 groups 1 or more IP addresses. In a context
 such as the one defined in CNTT, an ALTO
-property map could be used to expose T.I.F.S.A
+property map could be used to expose TIFSA
 information of potential candidate flavors, i.e.,
 potential NFVI PoPs where an application or
 service can be deployed.
 
-{{table_PropertyMap}} below shows an illustrative example
+{{table_PropertyMap}} below shows an example
 of an ALTO property map with property values
 grouped by flavor name.
 
@@ -506,9 +500,9 @@ grouped by flavor name.
       +--------+------------+-------+-----+------+------+-----+---+---+
 {: #table_PropertyMap title="ALTO Property Map." }
 
-The following example uses the filtered property map
-resource to request properties "type",
-"cpu", "ram", and "disk" on  5 ANE flavors named
+The following example uses ALTO's filtered property map
+to request properties "type",
+"cpu", "ram", and "disk" on 5 ANE flavors named
 "small-1", "small-2", "medium-1", "large-1", "large-2"
 defined in the example before.
 
@@ -565,14 +559,15 @@ This document has no IANA actions.
 # Conclusions
 
 Telco networks will increasingly contain a number
-of interconnected data centers, of different size
+of interconnected data centers and edge
+clouds, of different sizes
 and characteristics, allowing flexibility in the
 dynamic deployment of functions and applications
-for advance services. The overall objective of
+for advanced services. The overall objective of
 this document is to begin a discussion in the
 ALTO WG regarding the suitability of the ALTO
 protocol for determining where to deploy a
-function or application in distributed computing
+function or application in these distributed computing
 environments. The result of such discussions
 will be reflected in future versions of this draft.
 
