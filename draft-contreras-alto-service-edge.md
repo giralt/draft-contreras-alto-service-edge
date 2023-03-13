@@ -602,11 +602,11 @@ of the type of domain the application is currently residing in.
 Future versions of this document will elaborate further on this
 use case.
 
-## Optimized placement of microservice components 
+## Optimized placement of microservice components
 
-Current applications are transitioning from a monolithic service architecture towards the composition of microservice components, following cloud-native trends. The set of microservices can have associated SLOs which impose constraints not only in terms of required compute resources (CPU, storage, ...) dependent on the compute facilities available, but also in terms of performance indicators such as latency, bandwidth, etc, which impose restrictions in the networking capabilities connecting that compute facilities. Even more complex constrains, such as affinity among certain microservices components could require of complex calculations for selecting the most appropriate compute nodes taken into consideration both network and compute information.
+Current applications are transitioning from a monolithic service architecture towards the composition of microservice components, following cloud-native trends. The set of microservices can have associated SLOs which impose constraints not only in terms of required compute resources (CPU, storage, ...) dependent on the compute facilities available, but also in terms of performance indicators such as latency, bandwidth, etc, which impose restrictions in the networking capabilities connecting the computing facilities. Even more complex constrains, such as affinity among certain microservices components could require complex calculations for selecting the most appropriate compute nodes taken into consideration both network and compute information.
 
-Thus, service/application orchestrators can benefit from the information exposed by ALTO at the time of deciding the placement of the micorservices in the network. 
+Thus, service/application orchestrators can benefit from the information exposed by ALTO at the time of deciding the placement of the microservices in the network.
 
 # Security Considerations
 
