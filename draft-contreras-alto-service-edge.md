@@ -96,7 +96,7 @@ informative:
 
 Service providers are starting to deploy computing capabilities
 across the network for hosting applications such as AR/VR, vehicle
-networks, IoT, AI training, among others.
+networks, IoT, and AI training, among others.
 In these distributed computing
 environments, knowledge about computing and communication resources
 is necessary to determine the proper deployment location of
@@ -124,9 +124,9 @@ latency, bandwidth, processing capabilities, storage, etc.
 This is translated in the emergence of a number of data
 centers (both in the cloud and at the edge)
 of different sizes (e.g., large, medium, small)
-characterized by distinct dimension of CPUs, memory and
+characterized by distinct dimension of CPUs, memory, and
 storage capabilities, as well as bandwidth capacity for
-forwarding the traffic generated in and out the
+forwarding the traffic generated in and out of the
 corresponding data center.
 
 The proliferation of the edge computing paradigm
@@ -147,7 +147,7 @@ mechanisms assisting this decision by considering
 a number of constraints related to the function or
 application to be deployed, understanding how a
 given decision on the computing environment
-for the service edge affects to the transport network
+for the service edge affects the transport network
 substrate. This would enable the integration of network
 capabilities in the function placement decision
 and further optimize performance of the deployed
@@ -174,17 +174,17 @@ can be consumed in an ephemeral fashion,
 during the actual lifetime of the required function
 or application.
 
-This same approach is being taken nowadays for
+This same approach is being taken for
 characterizing bundles of resources on the
 so-called Network Function Virtualization
-Infrastructure (NFVI) Points of Presence (PoPs)
+Infrastructure Points of Presence (NFVI-PoPs)
 being deployed by the telco operators.
 For instance, the Common Network Function
 Virtualisation Infrastructure Telecom Taskforce
-(CNTT) {{CNTT}}}}, {{GSMA}}, jointly hosted by GSMA
-and the Linux Foundation, intends to harmonize
-the definition of above-mentioned computing capability
-instances or flavors for abstracting capabilities
+(CNTT) {{CNTT}}, jointly hosted by GSMA
+{{GSMA}} and the Linux Foundation, intends to harmonize
+the definition of
+instances and flavors for abstracting capabilities
 of the underlying NFVI, facilitating a
 more efficient utilization of the infrastructure
 and simplifying the integration and certification
@@ -199,22 +199,22 @@ such as OpenStack and Kubernetes.
 Taking CNTT as an example, the flavors or instances
 can be characterized according to:
 
-*  *Type of instance (T):* The types of instances
-are characterized as B (Basic), or N (Network Intensive).
+*  *Type of instance (T):* Used to specify the type of instances,
+which are characterized as B (Basic), or N (Network Intensive).
 The latter includes network acceleration extensions
 for offloading network intensive operations to hardware.
 
-* *Interface Option (I):* It refers to the associated
+* *Interface Option (I):* Used to specify the associated
 bandwidth of the network interface.
 
-* *Compute flavor (F):* It refers to a given predefined
+* *Compute flavor (F):* Used to specify a given predefined
 combination of resources in terms of virtual CPU, RAM,
 disk, and bandwidth for the management interface.
 
-* *Optional storage extension (S):* Used to request additional storage capacity.
+* *Optional storage extension (S):* Used to specify additional storage capacity.
 
 * *Optional hardware acceleration characteristics (A):*
-Used to request specific acceleration capabilities for
+Used to specify acceleration capabilities for
 improving the performance of the application.
 
 The naming convention of an instance is thus encoded as TIFSA.
@@ -249,10 +249,10 @@ and transport network recommendation.
 CNTT proposes the existence of a catalogue
 of compute infrastructure profiles collecting
 the computing capability instances available
-to be consumed. Such kind of catalogue could be
+to be consumed. Such a catalogue could be
 communicated to ALTO or even incorporated to it.
 
-ALTO server queries are required to support
+ALTO server queries could support
 TIFSA encoding in order to retrieve proper
 maps from ALTO. Additionally, filtered queries
 for particular characteristics of a flavor
@@ -298,7 +298,7 @@ the gateway providing connectivity to the NFVI PoP.
 
 * To integrate with Cloud Infrastructure
 Managers that could expose cloud infrastructure
-capabilities as in {{CNTT}}, {{GSMA}}.
+capabilities as in {{CNTT}} and {{GSMA}}.
 
 The viability of these options will be explored
 in future versions of this document.
@@ -326,13 +326,14 @@ In order to select the optimal edge server
 from both the network (e.g.,
 the path with lower latency and/or higher bandwidth)
 and the cloud perspectives (e.g., number of CPUs/GPUs,
-available RAM, storage capacity, etc),
+available RAM and storage capacity),
 there is a need to see the edge server as
 both an IP entity (as in {{RFC7285}})
-and an ANE entity (as in {{RFC9275}}).
+and an Abstract Network Element (ANE)
+entity (as in {{RFC9275}}).
 
 Currently there is no mechanism (neither in {{RFC9275}} nor
-{{RFC9240}} to see the same edge server as an entity
+{{RFC9240}}) to see the same edge server as an entity
 in both domains. The design of ALTO, however,
 allows extensions that could be used to identify
 that an entity can be defined in several domains.
@@ -358,7 +359,7 @@ defined on entities of each of these domains.
 
 ## Example of Entity Definition in Different Domains
 
-First, as there can be applications that do not
+As there can be applications that do not
 necessarily need both compute and networking information,
 it is fine to keep the entity domains separate, each with
 their own native properties.
@@ -462,16 +463,16 @@ property maps. The term "flavor" or "instance"
 refers to an abstracted set of computing
 resources, with well-specified properties such as
 CPU, RAM and Storage. Thus, a flavor can be
-seen as an ANE, with properties defined in terms
+seen as an ANE with properties defined in terms
 of TIFSA. A flavor or instance
 is a group of 1 or more elements that can be
 reached via one or more network addresses. So
-an instance can be also be seen as a PID that
-groups 1 or more IP addresses. In a context
+an instance can also be seen as a PID that
+groups one or more IP addresses. In a context
 such as the one defined in CNTT, an ALTO
 property map could be used to expose TIFSA
 information of potential candidate flavors, i.e.,
-potential NFVI PoPs where an application or
+potential NFVI-PoPs where an application or
 service can be deployed.
 
 {{table_PropertyMap}} below shows an example
@@ -502,7 +503,7 @@ grouped by flavor name.
 
 The following example uses ALTO's filtered property map
 to request properties "type",
-"cpu", "ram", and "disk" on 5 ANE flavors named
+"cpu", "ram", and "disk" on five ANE flavors named
 "small-1", "small-2", "medium-1", "large-1", "large-2"
 defined in the example before.
 
@@ -560,7 +561,7 @@ This document has no IANA actions.
 
 Telco networks will increasingly contain a number
 of interconnected data centers and edge
-clouds, of different sizes
+clouds of different sizes
 and characteristics, allowing flexibility in the
 dynamic deployment of functions and applications
 for advanced services. The overall objective of
@@ -568,7 +569,7 @@ this document is to begin a discussion in the
 ALTO WG regarding the suitability of the ALTO
 protocol for determining where to deploy a
 function or application in these distributed computing
-environments. The result of such discussions
+environments. The result of these discussions
 will be reflected in future versions of this draft.
 
 
