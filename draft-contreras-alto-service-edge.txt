@@ -92,6 +92,7 @@ Table of Contents
      5.2.  Definition of Flavors in ALTO Property Map
    6.  Use Cases
      6.1.  Open Abstraction for Edge Computing
+     6.2.  Optimized placement of microservice components
    7.  Security Considerations
    8.  IANA Considerations
    9.  Conclusions
@@ -248,7 +249,7 @@ Table of Contents
       information together with the notion of function location (that
       would require to be adapted to the existence of available compute
       capabilities).  A recent effort in this direction can be found in
-      [I-D.ietf-teas-sf-aware-topo-model].
+      [I-D.llc-teas-dc-aware-topo-model].
 
    *  To extend BGP-LS [RFC7752], which is already considered as a
       mechanism for feeding topology information in ALTO, in order to
@@ -530,6 +531,25 @@ Table of Contents
    Future versions of this document will elaborate further on this use
    case.
 
+6.2.  Optimized placement of microservice components
+
+   Current applications are transitioning from a monolithic service
+   architecture towards the composition of microservice components,
+   following cloud-native trends.  The set of microservices can have
+   associated SLOs which impose constraints not only in terms of
+   required compute resources (CPU, storage, ...) dependent on the
+   compute facilities available, but also in terms of performance
+   indicators such as latency, bandwidth, etc, which impose restrictions
+   in the networking capabilities connecting the computing facilities.
+   Even more complex constrains, such as affinity among certain
+   microservices components could require complex calculations for
+   selecting the most appropriate compute nodes taken into consideration
+   both network and compute information.
+
+   Thus, service/application orchestrators can benefit from the
+   information exposed by ALTO at the time of deciding the placement of
+   the microservices in the network.
+
 7.  Security Considerations
 
    TODO Security
@@ -584,6 +604,13 @@ Table of Contents
               draft-ietf-teas-sf-aware-topo-model-11, 12 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-sf-
               aware-topo-model-11>.
+
+   [I-D.llc-teas-dc-aware-topo-model]
+              Lee, Y., Liu, X., and L. M. Contreras, "DC aware TE
+              topology model", Work in Progress, Internet-Draft, draft-
+              llc-teas-dc-aware-topo-model-02, 11 July 2022,
+              <https://datatracker.ietf.org/doc/html/draft-llc-teas-dc-
+              aware-topo-model-02>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

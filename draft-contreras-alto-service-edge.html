@@ -1228,6 +1228,9 @@ locations.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-open-abstraction-for-edge-c" class="internal xref">Open Abstraction for Edge Computing</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-optimized-placement-of-micr" class="internal xref">Optimized placement of microservice components</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
@@ -1456,7 +1459,7 @@ with the notion of function location (that would
 require to be adapted to the existence of available
 compute capabilities). A recent effort in this
 direction can be found in
-<span>[<a href="#I-D.ietf-teas-sf-aware-topo-model" class="cite xref">I-D.ietf-teas-sf-aware-topo-model</a>]</span>.<a href="#section-4.2-3.1" class="pilcrow">¶</a>
+<span>[<a href="#I-D.llc-teas-dc-aware-topo-model" class="cite xref">I-D.llc-teas-dc-aware-topo-model</a>]</span>.<a href="#section-4.2-3.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.2-3.2">To extend BGP-LS <span>[<a href="#RFC7752" class="cite xref">RFC7752</a>]</span>,
 which is already considered as a mechanism for
@@ -1818,6 +1821,15 @@ of the type of domain the application is currently residing in.<a href="#section
 use case.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="optimized-placement-of-microservice-components">
+<section id="section-6.2">
+        <h3 id="name-optimized-placement-of-micr">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-optimized-placement-of-micr" class="section-name selfRef">Optimized placement of microservice components</a>
+        </h3>
+<p id="section-6.2-1">Current applications are transitioning from a monolithic service architecture towards the composition of microservice components, following cloud-native trends. The set of microservices can have associated SLOs which impose constraints not only in terms of required compute resources (CPU, storage, ...) dependent on the compute facilities available, but also in terms of performance indicators such as latency, bandwidth, etc, which impose restrictions in the networking capabilities connecting the computing facilities. Even more complex constrains, such as affinity among certain microservices components could require complex calculations for selecting the most appropriate compute nodes taken into consideration both network and compute information.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">Thus, service/application orchestrators can benefit from the information exposed by ALTO at the time of deciding the placement of the microservices in the network.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">
@@ -1883,6 +1895,10 @@ will be reflected in future versions of this draft.<a href="#section-9-1" class=
 <dt id="I-D.ietf-teas-sf-aware-topo-model">[I-D.ietf-teas-sf-aware-topo-model]</dt>
         <dd>
 <span class="refAuthor">Bryskin, I.</span>, <span class="refAuthor">Liu, X.</span>, <span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Guichard, J.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Ceccarelli, D.</span>, <span class="refAuthor">Tantsura, J.</span>, and <span class="refAuthor">D. Shytyi</span>, <span class="refTitle">"SF Aware TE Topology YANG Model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teas-sf-aware-topo-model-11</span>, <time datetime="2023-03-12" class="refDate">12 March 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teas-sf-aware-topo-model-11">https://datatracker.ietf.org/doc/html/draft-ietf-teas-sf-aware-topo-model-11</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.llc-teas-dc-aware-topo-model">[I-D.llc-teas-dc-aware-topo-model]</dt>
+        <dd>
+<span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Liu, X.</span>, and <span class="refAuthor">L. M. Contreras</span>, <span class="refTitle">"DC aware TE topology model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-llc-teas-dc-aware-topo-model-02</span>, <time datetime="2022-07-11" class="refDate">11 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-llc-teas-dc-aware-topo-model-02">https://datatracker.ietf.org/doc/html/draft-llc-teas-dc-aware-topo-model-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
