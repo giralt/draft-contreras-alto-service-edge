@@ -96,66 +96,65 @@ informative:
 
 Service providers are starting to deploy computing capabilities
 across the network for hosting applications such as AR/VR, vehicle
-networks, IoT, AI training, and many more.
-In such distributed computing
+networks, IoT, AI training, among others.
+In these distributed computing
 environments, knowledge about computing and communication resources
 is necessary to determine the proper deployment location of
 each application. This document proposes an initial approach
-towards the use of ALTO to provide such information
-and assist the selection of the application deployment locations.
+towards the use of ALTO to expose such information to the
+applications and assist the selection of their deployment
+locations.
 
 
 --- middle
 
 # Introduction
 
-The advent of virtualization is enabling the operators
-with a dynamic instantiation of network functions and
+With the advent of network virtualization, operators
+can make use of dynamic instantiation of network functions and
 applications by using different techniques on top of
 commoditized computation infrastructures, permitting
 a flexible and on-demand deployment of services, aligned
-with the actual needs observed as demanded by the customers.
+with the actual needs as demanded by the users.
 
 Operators are starting to deploy distributed computing
 environments in different parts of the network with the
-objective of addressing the different service needs in
-terms of latency, bandwidth, processing capabilities, etc.
+objective of addressing different service needs including
+latency, bandwidth, processing capabilities, storage, etc.
 This is translated in the emergence of a number of data
-centers of different sizes (e.g., large, medium, small)
+centers (both in the cloud and at the edge)
+of different sizes (e.g., large, medium, small)
 characterized by distinct dimension of CPUs, memory and
 storage capabilities, as well as bandwidth capacity for
 forwarding the traffic generated in and out the
 corresponding data center.
 
-The probable future situation, with the generalization
-and proliferation of the edge computing approach, will
-increase the potential footprint where a function or
-application can be deployed. These different dimensioning
-rules result in a different unitary cost per CPU, memory,
-and storage in each computing environment because of the
-scale.
-
-All the available distributed computing capabilities
-can complicate the decision of what infrastructure use
-for instantiating a given function or application.
-Such a decision influences not only the resources
-that are consumed in a given computing
-environment, but also the network capacity of the
-path that connects such environment with the rest
-of the network from traffic source to destination.
+The proliferation of the edge computing paradigm
+further increases the potential footprint
+and heterogeneity of the environments where a function
+or application can be deployed, resulting in different
+unitary cost per CPU, memory,
+and storage. This increases the complexity of deciding
+the location where a given function or application should
+be best deployed, as this decision should be
+influenced not only by the available resources
+in a given computing
+environment, but also by the network capacity of the
+path connecting the traffic source with the destination.
 
 It is then essential for a network operator to have
-mechanisms assisting on the decision by considering
+mechanisms assisting this decision by considering
 a number of constraints related to the function or
-application to be deployed understanding how a
+application to be deployed, understanding how a
 given decision on the computing environment
 for the service edge affects to the transport network
-substrate. This would allow to integrate network
+substrate. This would enable the integration of network
 capabilities in the function placement decision
 and further optimize performance of the deployed
 application.
 
-This document proposes the usage of ALTO {{RFC7285}} for assisting with such a decision.
+This document proposes the usage of ALTO {{RFC7285}}
+for assisting such a decision.
 
 # Conventions and Definitions
 
