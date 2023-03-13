@@ -91,6 +91,10 @@ informative:
     title : Anuket Project
     seriesinfo : https://wiki.anuket.io/
     date : October 2022
+  LF-EDGE:
+    title : Linux Foundation Edge
+    seriesinfo : https://www.lfedge.org/
+    date : Accessed March 2023
 
 --- abstract
 
@@ -546,6 +550,55 @@ defined in the example before.
         }
       }
 {: #ane-flavor-name title="Filtered Property Map query example." }
+
+# Use Cases
+
+## Open Abstraction for Edge Computing
+
+As shown in this document, modern applications such as AR/VR,
+V2X, or IoT, require bringing compute
+closer to the edge in order to meet
+strict bandwidth, latency, and jitter requirements.  While this
+virtualization process can resemble the path taken
+by the main cloud computing providers
+(notably, AWS, Facebook, Google and Microsoft) to deploy
+he large-scale datacenters that
+today form the core of the cloud industry, the edge presents a
+key difference: datacenters (both in terms of their infrastructure
+and the applications run by them) are owned and managed by a
+single organization,
+whereas the edge involves a complex ecosystem of operators,
+vendors, and application providers, all striving to provide
+a quality end-to-end solution to the user. This implies that,
+while the traditional cloud has been implemented for the most part
+using vertically optimized and closed architectures, the edge will necessarily need to be based around a complete ecosystem of careful
+designed open standards to enable horizontal interoperability
+across all the involved parties.
+
+This document envisions ALTO playing a role as part of the
+ecosystem of open standards that are necessary to deploy and
+operate the edge cloud. As an example, consider a user of an XR
+application who arrives at his/her home by car. The application
+runs by leveraging compute capabilities from both the
+car and the public 5G edge cloud. As the user parks the
+car, 5G coverage may diminish (due to building interferance)
+making the home local Wi-Fi connectivity a better choice.
+Further, instead of relying on computational resources from
+the car and the 5G edge cloud, latency can be reduced by leveraging
+computing devices (PCs, laptops, tablets) available at home.
+The application's decision to switch from using resources in one
+domain to another, however,
+demands knowledge about the compute
+and communication resources available both in the 5G and the Wi-Fi
+domains, therefore requiring interoperability accross multiple
+industry standards (for instance, IETF and 3GPP on the public side,
+and LF Edge / EdgeX {{LF-EDGE}} Foundry on the private home side). ALTO
+can be positioned to act as an abstraction layer to support
+the exposure of communication and compute information independently
+of the type of domain the application is currently residing in.
+
+Future versions of this document will ellaborate further on this
+use case.
 
 
 # Security Considerations
