@@ -559,7 +559,7 @@ As shown in this document, modern applications such as AR/VR,
 V2X, or IoT, require bringing compute
 closer to the edge in order to meet
 strict bandwidth, latency, and jitter requirements.  While this
-virtualization process can resemble the path taken
+deployment process resembles the path taken
 by the main cloud providers
 (notably, AWS, Facebook, Google and Microsoft) to deploy
 their large-scale datacenters, the edge presents a
@@ -587,7 +587,7 @@ Further, instead of relying on computational resources from
 the car and the 5G edge cloud, latency can be reduced by leveraging
 computing devices (PCs, laptops, tablets) available from the home
 edge cloud.
-The application's decision to switch from using resources in one
+The application's decision to switch from one
 domain to another, however,
 demands knowledge about the compute
 and communication resources available both in the 5G and the Wi-Fi
