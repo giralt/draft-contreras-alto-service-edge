@@ -184,7 +184,7 @@ so-called Network Function Virtualization
 Infrastructure Points of Presence (NFVI-PoPs)
 being deployed by the telco operators.
 For instance, the Common Network Function
-Virtualisation Infrastructure Telecom Taskforce
+Virtualization Infrastructure Telecom Taskforce
 (CNTT) {{CNTT}}, jointly hosted by GSMA
 {{GSMA}} and the Linux Foundation, intends to harmonize
 the definition of
@@ -560,18 +560,17 @@ V2X, or IoT, require bringing compute
 closer to the edge in order to meet
 strict bandwidth, latency, and jitter requirements.  While this
 virtualization process can resemble the path taken
-by the main cloud computing providers
+by the main cloud providers
 (notably, AWS, Facebook, Google and Microsoft) to deploy
-the large-scale datacenters that
-today form the core of the cloud industry, the edge presents a
-key difference: datacenters (both in terms of their infrastructure
+their large-scale datacenters, the edge presents a
+key difference: datacenter clouds (both in terms of their infrastructure
 and the applications run by them) are owned and managed by a
 single organization,
-whereas the edge involves a complex ecosystem of operators,
+whereas edge clouds involve a complex ecosystem of operators,
 vendors, and application providers, all striving to provide
 a quality end-to-end solution to the user. This implies that,
 while the traditional cloud has been implemented for the most part
-using vertically optimized and closed architectures, the edge will necessarily need to rely on a complete ecosystem of carefully
+by using vertically optimized and closed architectures, the edge will necessarily need to rely on a complete ecosystem of carefully
 designed open standards to enable horizontal interoperability
 across all the involved parties.
 This document envisions ALTO playing a role as part of the
@@ -582,18 +581,19 @@ As an example, consider a user of an XR
 application who arrives at his/her home by car. The application
 runs by leveraging compute capabilities from both the
 car and the public 5G edge cloud. As the user parks the
-car, 5G coverage may diminish (due to building interferance)
+car, 5G coverage may diminish (due to building interference)
 making the home local Wi-Fi connectivity a better choice.
 Further, instead of relying on computational resources from
 the car and the 5G edge cloud, latency can be reduced by leveraging
-computing devices (PCs, laptops, tablets) available at home.
+computing devices (PCs, laptops, tablets) available from the home
+edge cloud.
 The application's decision to switch from using resources in one
 domain to another, however,
 demands knowledge about the compute
 and communication resources available both in the 5G and the Wi-Fi
-domains, therefore requiring interoperability accross multiple
+domains, therefore requiring interoperability across multiple
 industry standards (for instance, IETF and 3GPP on the public side,
-and LF Edge / EdgeX {{LF-EDGE}} Foundry on the private home side). ALTO
+and IETF and LF Edge {{LF-EDGE}} on the private home side). ALTO
 can be positioned to act as an abstraction layer supporting
 the exposure of communication and compute information independently
 of the type of domain the application is currently residing in.
