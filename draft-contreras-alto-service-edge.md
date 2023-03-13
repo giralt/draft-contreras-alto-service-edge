@@ -37,7 +37,7 @@ venue:
   mail: alto@ietf.org
   arch: https://mailarchive.ietf.org/arch/browse/alto/
   github: giralt/draft-contreras-alto-service-edge
-  latest: https://example.com/LATEST
+  latest: https://giralt.github.io/draft-contreras-alto-service-edge/#go.draft-contreras-alto-service-edge.html
 
 author:
  -
