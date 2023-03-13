@@ -73,6 +73,7 @@ normative:
   RFC9275:
   RFC9240:
   I-D.ietf-teas-sf-aware-topo-model:
+  I-D.llc-teas-dc-aware-topo-model:
 
 
 informative:
@@ -287,7 +288,7 @@ with the notion of function location (that would
 require to be adapted to the existence of available
 compute capabilities). A recent effort in this
 direction can be found in
-{{I-D.ietf-teas-sf-aware-topo-model}}.
+{{I-D.llc-teas-dc-aware-topo-model}}.
 
 * To extend BGP-LS {{RFC7752}},
 which is already considered as a mechanism for
@@ -601,6 +602,11 @@ of the type of domain the application is currently residing in.
 Future versions of this document will elaborate further on this
 use case.
 
+## Optimized placement of microservice components 
+
+Current applications are transitioning from a monolithic service architecture towards the composition of microservice components, following cloud-native trends. The set of microservices can have associated SLOs which impose constraints not only in terms of required compute resources (CPU, storage, ...) dependent on the compute facilities available, but also in terms of performance indicators such as latency, bandwidth, etc, which impose restrictions in the networking capabilities connecting that compute facilities. Even more complex constrains, such as affinity among certain microservices components could require of complex calculations for selecting the most appropriate compute nodes taken into consideration both network and compute information.
+
+Thus, service/application orchestrators can benefit from the information exposed by ALTO at the time of deciding the placement of the micorservices in the network. 
 
 # Security Considerations
 
