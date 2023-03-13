@@ -153,7 +153,7 @@ capabilities in the function placement decision
 and further optimize performance of the deployed
 application.
 
-This document proposes the usage of ALTO {{RFC7285}}
+This document proposes the use of ALTO {{RFC7285}}
 for assisting such a decision.
 
 # Conventions and Definitions
@@ -166,12 +166,11 @@ A given network function or application typically
 shows certain requirements in terms of processing
 capabilities (i.e., CPU), as well as
 volatile memory (i.e., RAM) and storage capacity.
-
-Cloud computing providers, such as Amazon Web Services
+Cloud computing providers such as Amazon Web Services
 or Microsoft Azure, typically structure their offerings
 of computing capabilities by bundling CPU, RAM and
-storage units as quotas, instances or flavors that
-can be consumed in an ephemeral or temporal fashion,
+storage units as quotas, instances, and flavors that
+can be consumed in an ephemeral fashion,
 during the actual lifetime of the required function
 or application.
 
@@ -183,25 +182,26 @@ being deployed by the telco operators.
 For instance, the Common Network Function
 Virtualisation Infrastructure Telecom Taskforce
 (CNTT) {{CNTT}}}}, {{GSMA}}, jointly hosted by GSMA
-and the Linux Foundation, intended to harmonize
+and the Linux Foundation, intends to harmonize
 the definition of above-mentioned computing capability
 instances or flavors for abstracting capabilities
-of the underlying NFVI facilitating a
+of the underlying NFVI, facilitating a
 more efficient utilization of the infrastructure
 and simplifying the integration and certification
-of functions, where certification means the assessment
+of functions. (Here certification means the assessment
 of the expected behavior for a given function
 according to the level of resources determined by
-a given flavor. Evolution of this initiative is
-Anuket {{Anuket}}, working on different architectures
-for well known tools such as OpenStack and Kubernetes.
+a given flavor.) An evolution of this initiative is
+Anuket {{Anuket}}, which works to consolidate 
+different architectures for well-known tools 
+such as OpenStack and Kubernetes.
 
 Taking CNTT as an example, the flavors or instances
 can be characterized according to:
 
 *  *Type of instance (T):* The types of instances
 are characterized as B (Basic), or N (Network Intensive).
-The latter can come with extensions for network acceleration
+The latter includes network acceleration extensions 
 for offloading network intensive operations to hardware.
 
 * *Interface Option (I):* It refers to the associated
@@ -211,35 +211,33 @@ bandwidth of the network interface.
 combination of resources in terms of virtual CPU, RAM,
 disk, and bandwidth for the management interface.
 
-* *Optional storage extension (S):* Allows to request
-additional storage capacity.
+* *Optional storage extension (S):* Used to request additional storage capacity.
 
 * *Optional hardware acceleration characteristics (A):*
-To request specific acceleration capabilities for
-improving the performance of the infrastructure.
+Used to request specific acceleration capabilities for
+improving the performance of the application.
 
 The naming convention of an instance is thus encoded as T.I.F.S.A.
 
 # Usage of ALTO for Service Placement
 
-ALTO can assist the deployment of a service or
-application on a specific flavor or instance of
+ALTO can assist the deployment of a service on a 
+specific flavor or instance of
 the computing substrate by taking into consideration
 network cost metrics.
-
 A generic and primary approach is to take into
 account metrics related to the computing environment,
 such as availability of resources, unitary cost
 of those resources, etc.
-
 Nevertheless, the function or application to be
-deployed on top of a given flavor is interconnected
-outside the computing environment where it is deployed,
-also requiring to guarantee transport network
-requirements to ensure the application performance,
-such as bandwidth, latency, etc.
+deployed on top of a given flavor must also be
+interconnected outside the computing 
+environment where it is deployed,
+therefore requiring the necessary network
+resources to satisfy application performance 
+requirements such as bandwidth or latency.
 
-The objective then is to leverage on ALTO to
+The objective then is to leverage ALTO to
 provide information about the more convenient
 execution environments to deploy virtualized
 network functions or applications, allowing
@@ -279,7 +277,7 @@ of the document.
 At this stage four potential solutions could be
 considered:
 
-* To leverage on (and possibly extend)
+* To leverage (and possibly extend)
 {{I-D.ietf-teas-sf-aware-topo-model}} for
 disseminating topology information together
 with notion of function location (that would
