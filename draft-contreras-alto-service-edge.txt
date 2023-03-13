@@ -90,12 +90,14 @@ Table of Contents
    5.  ALTO Design Considerations for Determining Service Edge
      5.1.  Example of Entity Definition in Different Domains
      5.2.  Definition of Flavors in ALTO Property Map
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  Conclusions
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   6.  Use Cases
+     6.1.  Open Abstraction for Edge Computing
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  Conclusions
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -162,7 +164,7 @@ Table of Contents
    resources on the so-called Network Function Virtualization
    Infrastructure Points of Presence (NFVI-PoPs) being deployed by the
    telco operators.  For instance, the Common Network Function
-   Virtualisation Infrastructure Telecom Taskforce (CNTT) [CNTT],
+   Virtualization Infrastructure Telecom Taskforce (CNTT) [CNTT],
    jointly hosted by GSMA [GSMA] and the Linux Foundation, intends to
    harmonize the definition of instances and flavors for abstracting
    capabilities of the underlying NFVI, facilitating a more efficient
@@ -484,15 +486,60 @@ Table of Contents
 
                Figure 3: Filtered Property Map query example.
 
-6.  Security Considerations
+6.  Use Cases
+
+6.1.  Open Abstraction for Edge Computing
+
+   As shown in this document, modern applications such as AR/VR, V2X, or
+   IoT, require bringing compute closer to the edge in order to meet
+   strict bandwidth, latency, and jitter requirements.  While this
+   virtualization process can resemble the path taken by the main cloud
+   providers (notably, AWS, Facebook, Google and Microsoft) to deploy
+   their large-scale datacenters, the edge presents a key difference:
+   datacenter clouds (both in terms of their infrastructure and the
+   applications run by them) are owned and managed by a single
+   organization, whereas edge clouds involve a complex ecosystem of
+   operators, vendors, and application providers, all striving to
+   provide a quality end-to-end solution to the user.  This implies
+   that, while the traditional cloud has been implemented for the most
+   part by using vertically optimized and closed architectures, the edge
+   will necessarily need to rely on a complete ecosystem of carefully
+   designed open standards to enable horizontal interoperability across
+   all the involved parties.  This document envisions ALTO playing a
+   role as part of the ecosystem of open standards that are necessary to
+   deploy and operate the edge cloud.
+
+   As an example, consider a user of an XR application who arrives at
+   his/her home by car.  The application runs by leveraging compute
+   capabilities from both the car and the public 5G edge cloud.  As the
+   user parks the car, 5G coverage may diminish (due to building
+   interference) making the home local Wi-Fi connectivity a better
+   choice.  Further, instead of relying on computational resources from
+   the car and the 5G edge cloud, latency can be reduced by leveraging
+   computing devices (PCs, laptops, tablets) available from the home
+   edge cloud.  The application's decision to switch from using
+   resources in one domain to another, however, demands knowledge about
+   the compute and communication resources available both in the 5G and
+   the Wi-Fi domains, therefore requiring interoperability across
+   multiple industry standards (for instance, IETF and 3GPP on the
+   public side, and IETF and LF Edge [LF-EDGE] on the private home
+   side).  ALTO can be positioned to act as an abstraction layer
+   supporting the exposure of communication and compute information
+   independently of the type of domain the application is currently
+   residing in.
+
+   Future versions of this document will elaborate further on this use
+   case.
+
+7.  Security Considerations
 
    TODO Security
 
-7.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-8.  Conclusions
+9.  Conclusions
 
    Telco networks will increasingly contain a number of interconnected
    data centers and edge clouds of different sizes and characteristics,
@@ -504,9 +551,9 @@ Table of Contents
    The result of these discussions will be reflected in future versions
    of this draft.
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [RFC7285]  Alimi, R., Ed., Penno, R., Ed., Yang, Y., Ed., Kiesel, S.,
               Previdi, S., Roome, W., Shalunov, S., and R. Woundy,
@@ -535,9 +582,9 @@ Table of Contents
               Bryskin, I., Liu, X., Lee, Y., Guichard, J., Contreras, L.
               M., Ceccarelli, D., Tantsura, J., and D. Shytyi, "SF Aware
               TE Topology YANG Model", Work in Progress, Internet-Draft,
-              draft-ietf-teas-sf-aware-topo-model-10, 22 October 2022,
+              draft-ietf-teas-sf-aware-topo-model-11, 12 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-sf-
-              aware-topo-model-10>.
+              aware-topo-model-11>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -548,7 +595,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [CNTT]     "Cloud Infrastructure Telco Taskforce Reference Model",
               https://github.com/cntt-n/CNTT/wiki , June 2022.
@@ -558,6 +605,9 @@ Table of Contents
               uploads//NG.126-v2.0-1.pdf , October 2021.
 
    [Anuket]   "Anuket Project", https://wiki.anuket.io/ , October 2022.
+
+   [LF-EDGE]  "Linux Foundation Edge", https://www.lfedge.org/ , March
+              2023.
 
 Acknowledgments
 
