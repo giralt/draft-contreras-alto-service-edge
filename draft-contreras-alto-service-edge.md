@@ -167,17 +167,36 @@ for assisting such a decision.
 
 # Computing Needs
 
-A given network function or application typically
-shows certain requirements in terms of processing
-capabilities (i.e., CPU), as well as
-volatile memory (i.e., RAM) and storage capacity.
+The compute needs for an application or service function are typically set in terms of certain requirements in terms of processing capabilities (i.e., CPU), as well as volatile memory (i.e., RAM) and storage capacity. There are two ways of considering those needs: either as individual values for each of the resources, or as a pre-defined bundle of them in the form of instance or compute flavor.
+
+## Working with compute resource values 
+
+Compute resource values can be obtained from cloud manager systems able to provide information about compute resources in a given compute node. These cloud manager systems typically provide information about total resources in the compute node and either the used or the allocatable resources. This information can be leveraged for taking application or service function placement decisions from the compute capability perspective.
+Each cloud management system has their own schema of information to be provided. In general terms, information about CPU, memory and storage can be provided, together with the identifiers of the compute node and some other system information. Examples of these cloud management systems are Kubernetes, OpenStack and OpenNebula.
+The following table summarizes some of the obtainable information from these cloud management systems.
+
++-------------------------+---------------------------+----------------------------------+
+| Cloud Management System | Basic compute information | Additional information (example) |
++-------------------------+---------------------------+----------------------------------+
+| Kubernetes              | CPU, memory (total and    | Node name, machine ID, operating |
+|                         | allocatable)              | system, etc                      |
++-------------------------+---------------------------+----------------------------------+
+| OpenStack               | CPU, memory, storage      | Compute node ID, node name,      |
+|                         | (total and used)          | hypervisor type, etc             |
++-------------------------+---------------------------+----------------------------------+
+| OpenNebula              | CPU, memory, storage      | Compute node name, cluster ID    |
+|                         | (max and used)            | hypervisor type, etc             |
++-------------------------+---------------------------+----------------------------------+
+
+
+## Working with compute flavors
 Cloud computing providers such as Amazon Web Services
-or Microsoft Azure, typically structure their offerings
+Microsoft Azure, or Google Cloud Platform, typically structure their offerings
 of computing capabilities by bundling CPU, RAM and
 storage units as quotas, instances, and flavors that
 can be consumed in an ephemeral fashion,
 during the actual lifetime of the required function
-or application.
+or application. In the case of Amazon Web Services such grouping of compute resources is denominated instance type, being the same concept named as virtual machine size in Microsoft Azure and machine type in Google Cloud Platform.
 
 This same approach is being taken for
 characterizing bundles of resources on the
