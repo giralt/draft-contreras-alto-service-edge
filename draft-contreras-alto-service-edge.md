@@ -639,4 +639,4 @@ will be reflected in future versions of this draft.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The work of Luis M. Contreras has been partially funded by the European Union under the Horizon Europe project CODECO (COgnitive, Decentralised Edge-  Cloud Orchestration), grant number 101092696.
