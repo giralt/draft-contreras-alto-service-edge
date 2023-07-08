@@ -175,18 +175,19 @@ Compute resource values can be obtained from cloud manager systems able to provi
 Each cloud management system has their own schema of information to be provided. In general terms, information about CPU, memory and storage can be provided, together with the identifiers of the compute node and some other system information. Examples of these cloud management systems are Kubernetes, OpenStack and OpenNebula.
 The following table summarizes some of the obtainable information from these cloud management systems.
 
-+-------------------------+---------------------------+----------------------------------+
-| Cloud Management System | Basic compute information | Additional information (example) |
-+-------------------------+---------------------------+----------------------------------+
-| Kubernetes              | CPU, memory (total and    | Node name, machine ID, operating |
-|                         | allocatable)              | system, etc                      |
-+-------------------------+---------------------------+----------------------------------+
-| OpenStack               | CPU, memory, storage      | Compute node ID, node name,      |
-|                         | (total and used)          | hypervisor type, etc             |
-+-------------------------+---------------------------+----------------------------------+
-| OpenNebula              | CPU, memory, storage      | Compute node name, cluster ID    |
-|                         | (max and used)            | hypervisor type, etc             |
-+-------------------------+---------------------------+----------------------------------+
+    +-------------------------+---------------------------+----------------------------------+
+    | Cloud Management System | Basic compute information | Additional information (example) |
+    +-------------------------+---------------------------+----------------------------------+
+    | Kubernetes              | CPU, memory (total and    | Node name, machine ID, operating |
+    |                         | allocatable)              | system, etc                      |
+    +-------------------------+---------------------------+----------------------------------+
+    | OpenStack               | CPU, memory, storage      | Compute node ID, node name,      |
+    |                         | (total and used)          | hypervisor type, etc             |
+    +-------------------------+---------------------------+----------------------------------+
+    | OpenNebula              | CPU, memory, storage      | Compute node name, cluster ID    |
+    |                         | (max and used)            | hypervisor type, etc             |
+    +-------------------------+---------------------------+----------------------------------+
+{: #table_CloudMngrs title="Compute resource information from well known cloud managers" }
 
 
 ## Working with compute flavors
