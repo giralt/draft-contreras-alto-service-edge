@@ -509,9 +509,38 @@ information of potential candidate flavors, i.e.,
 potential NFVI-PoPs where an application or
 service can be deployed.
 
-{{table_PropertyMap}} below shows an example
-of an ALTO property map with property values
-grouped by flavor name.
+{{example_edge}} below depicts an example of a typical edge-cloud scenario
+{{RFC9275}} where each ANE represents a flavor/instance that resides on
+different cloud servers.  Flavors on the "on-premise" edge nodes have
+limited resources (but are closer to the end hosts), and flavors on
+the site-radio edge node and access central office (CO) have more
+available resources.
+
+       A                B
+       |                |         Access CO    Cloud DC
+    +--|-------+  +-----|-----+  +---------+  +---------+
+    |          |  |           |  |         |  |         |
+    |+--------+|  |+---------+|  |+-------+|  |+-------+|
+    ||small-1 ||--||medium-1 ||--||large-1||--||large-2||
+    |+--------+|  |+---------+|  |+-------+|  |+-------+|
+    |   ANE    |  |    ANE    |  |   ANE   |  |   ANE   |
+    +----------+  +-----------+  +----|----+  +---------+
+     On premise    site-radio         |
+                   edge node          |
+    +----------+                      |
+    |          |                      |
+    |+--------+|                      |
+    ||small-2 ||----------------------+
+    |+--------+|
+    |   ANE    |
+    +--|-------+
+       |On premise
+       |
+       C
+{: #example_edge title="Example Use Case for Service Edge." }
+
+Based on the reference scenario ({{example_edge}}), {{table_PropertyMap}} shows fictitious
+TIFSA property types for entities of domain type "ane":
 
       +--------+------------+-------+-----+------+------+-----+---+---+
       | flavor |  type (T)  | inter | f-c | f-ra | f-di | f-b | S | A |
@@ -535,51 +564,91 @@ grouped by flavor name.
       +--------+------------+-------+-----+------+------+-----+---+---+
 {: #table_PropertyMap title="ALTO Property Map." }
 
-The following example uses ALTO's filtered property map
-to request properties "type",
-"cpu", "ram", and "disk" on five ANE flavors named
-"small-1", "small-2", "medium-1", "large-1", "large-2"
-defined in the example before.
+Subsequently, an ALTO client may request flavor(s) information from
+source [A] to destinations [B,C].  The following is a simplified
+example of an ALTO client request and the corresponding response.
+Note that the response consists of two parts: (i) ANE array for each
+source and destination pair (out of the scope of this document), and
+(ii) the requested properties of ANEs.
 
-      POST /propmap/lookup/ane-flavor-name HTTP/1.1
-      Host: alto.example.com
-      Accept: application/alto-propmap+json,application/alto-error+json
-      Content-Length: 155
-      Content-Type: application/alto-propmapparams+json
-      {
-        "entities" : ["small-1",
-                      "small-2",
-                      "medium-1",
-                      "large-1"],
-                      "large-2"],
-        "properties" : [ "type", "cpu", "ram", "disk"]
+    POST /costmap/pv HTTP/1.1
+    Host: alto.example.com
+    Accept: multipart/related;type=application/alto-costmap+json,
+            application/alto-error+json
+    Content-Length: 163
+    Content-Type: application/alto-costmapfilter+json
+
+    {
+      "cost-type": {
+        "cost-mode": "array",
+        "cost-metric": "ane-path"
+      },
+      "pids": {
+        "srcs": [ "A" ],
+        "dsts": [ "B", "C" ]
+      },
+      "ane-property-names": [
+        "type",
+        "cpu",
+        "ram",
+        "disk"
+      ]
+    }
+
+    HTTP/1.1 200 OK
+    Content-Length: 952
+    Content-Type: multipart/related; boundary=example-1;
+                  type=application/alto-costmap+json
+
+    Content-ID: <costmap@alto.example.com>
+    Content-Type: application/alto-costmap+json
+
+    {
+      "meta": {
+        "vtag": {
+          "resource-id": "filtered-cost-map-pv.costmap",
+          "tag": "d827f484cb66ce6df6b5077cb8562b0a"
+        },
+        "dependent-vtags": [
+          {
+            "resource-id": "my-default-networkmap",
+            "tag": "c04bc5da49534274a6daeee8ea1dec62"
+          }
+        ],
+        "cost-type": {
+          "cost-mode": "array",
+          "cost-metric": "ane-path"
+        }
+      },
+      "cost-map": {
+        "A": {
+          "B": [ "small-1", "medium-1"],
+          "C": [ "small-1", "medium-1", "large-1", "small-2" ]
+        }
       }
+    }
 
-      HTTP/1.1 200 OK
-      Content-Length: 295
-      Content-Type: application/alto-propmap+json
-      {
+    Content-ID: <propmap@alto.example.com>
+    Content-Type: application/alto-propmap+json
+
+    {
         "meta" : {
         },
         "property-map": {
-          "small-1":
+          ".ane:small-1":
             {"type" : "basic", "cpu" : 1,
               "ram" : "512MB", "disk" : 1GB},
-          "small-2":
+          ".ane:small-2":
             {"type" : "network-intensive", "cpu" : 1,
               "ram" : "512MB", "disk" : 1GB},
-          "medium-1":
+          ".ane:medium-1":
             {"type" : "compute-intensive", "cpu" : 2,
               "ram" : "4GB", "disk" : 40GB},
-          "large-1":
-            {"type" : "compute-intensive", "cpu" : 4,
-              "ram" : "8GB", "disk" : 80GB},
-          "large-2":
-            {"type" : "compute-intensive", "cpu" : 8,
-              "ram" : "16GB", "disk" : 160GB},
-        }
-      }
-{: #ane-flavor-name title="Filtered Property Map query example." }
+          ".ane:large-1":
+           {"type" : "compute-intensive", "cpu" : 4,
+             "ram" : "8GB", "disk" : 80GB}
+       }
+   }
 
 # Use Cases
 
