@@ -5,14 +5,14 @@
 ALTO                                                     L. M. Contreras
 Internet-Draft                                                Telefonica
 Intended status: Informational                            S. Randriamasy
-Expires: 14 September 2023                               Nokia Bell Labs
+Expires: 11 January 2024                                 Nokia Bell Labs
                                                            J. Ros-Giralt
                                                    Qualcomm Europe, Inc.
                                                                D. Lachos
                                                                   Benocs
                                                            C. Rothenberg
                                                                  Unicamp
-                                                           13 March 2023
+                                                            10 July 2023
 
 
                 Use of ALTO for Determining Service Edge
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 September 2023.
+   This Internet-Draft will expire on 11 January 2024.
 
 Copyright Notice
 
@@ -83,6 +83,8 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Computing Needs
+     3.1.  Working with compute resource values
+     3.2.  Working with compute flavors
    4.  Usage of ALTO for Service Placement
      4.1.  Integrating Compute Information in ALTO
      4.2.  Association of Compute Capabilities to Network Topology
@@ -93,6 +95,7 @@ Table of Contents
    6.  Use Cases
      6.1.  Open Abstraction for Edge Computing
      6.2.  Optimized placement of microservice components
+     6.3.  Distributed AI Workloads
    7.  Security Considerations
    8.  IANA Considerations
    9.  Conclusions
@@ -152,14 +155,56 @@ Table of Contents
 
 3.  Computing Needs
 
-   A given network function or application typically shows certain
-   requirements in terms of processing capabilities (i.e., CPU), as well
-   as volatile memory (i.e., RAM) and storage capacity.  Cloud computing
-   providers such as Amazon Web Services or Microsoft Azure, typically
-   structure their offerings of computing capabilities by bundling CPU,
-   RAM and storage units as quotas, instances, and flavors that can be
-   consumed in an ephemeral fashion, during the actual lifetime of the
-   required function or application.
+   The compute needs for an application or service function are
+   typically set in terms of certain requirements in terms of processing
+   capabilities (i.e., CPU), as well as volatile memory (i.e., RAM) and
+   storage capacity.  There are two ways of considering those needs:
+   either as individual values for each of the resources, or as a pre-
+   defined bundle of them in the form of instance or compute flavor.
+
+3.1.  Working with compute resource values
+
+   Compute resource values can be obtained from cloud manager systems
+   able to provide information about compute resources in a given
+   compute node.  These cloud manager systems typically provide
+   information about total resources in the compute node and either the
+   used or the allocatable resources.  This information can be leveraged
+   for taking application or service function placement decisions from
+   the compute capability perspective.  Each cloud management system has
+   their own schema of information to be provided.  In general terms,
+   information about CPU, memory and storage can be provided, together
+   with the identifiers of the compute node and some other system
+   information.  Examples of these cloud management systems are
+   Kubernetes, OpenStack and OpenNebula.  The following table summarizes
+   some of the obtainable information from these cloud management
+   systems.
+
++-------------------------+---------------------------+----------------------------------+
+| Cloud Management System | Basic compute information | Additional information (example) |
++-------------------------+---------------------------+----------------------------------+
+| Kubernetes              | CPU, memory (total and    | Node name, machine ID, operating |
+|                         | allocatable)              | system, etc                      |
++-------------------------+---------------------------+----------------------------------+
+| OpenStack               | CPU, memory, storage      | Compute node ID, node name,      |
+|                         | (total and used)          | hypervisor type, etc             |
++-------------------------+---------------------------+----------------------------------+
+| OpenNebula              | CPU, memory, storage      | Compute node name, cluster ID    |
+|                         | (max and used)            | hypervisor type, etc             |
++-------------------------+---------------------------+----------------------------------+
+
+Figure 1: Compute resource information from well known cloud managers
+
+3.2.  Working with compute flavors
+
+   Cloud computing providers such as Amazon Web Services Microsoft
+   Azure, or Google Cloud Platform, typically structure their offerings
+   of computing capabilities by bundling CPU, RAM and storage units as
+   quotas, instances, and flavors that can be consumed in an ephemeral
+   fashion, during the actual lifetime of the required function or
+   application.  In the case of Amazon Web Services such grouping of
+   compute resources is denominated instance type, being the same
+   concept named as virtual machine size in Microsoft Azure and machine
+   type in Google Cloud Platform.
 
    This same approach is being taken for characterizing bundles of
    resources on the so-called Network Function Virtualization
@@ -283,7 +328,7 @@ Table of Contents
                             |        |                 |Catalogue|
                             +--------+                 +---------+
 
-                Figure 1: Service Edge Information Exchange.
+                Figure 2: Service Edge Information Exchange.
 
    In order to select the optimal edge server from both the network
    (e.g., the path with lower latency and/or higher bandwidth) and the
@@ -415,8 +460,39 @@ Table of Contents
    candidate flavors, i.e., potential NFVI-PoPs where an application or
    service can be deployed.
 
-   Figure 2 below shows an example of an ALTO property map with property
-   values grouped by flavor name.
+   Figure 3 below depicts an example of a typical edge-cloud scenario
+   [RFC9275] where each ANE represents a flavor/instance that resides on
+   different cloud servers.  Flavors on the "on-premise" edge nodes have
+   limited resources (but are closer to the end hosts), and flavors on
+   the site-radio edge node and access central office (CO) have more
+   available resources.
+
+      A                B
+      |                |         Access CO    Cloud DC
+   +--|-------+  +-----|-----+  +---------+  +---------+
+   |          |  |           |  |         |  |         |
+   |+--------+|  |+---------+|  |+-------+|  |+-------+|
+   ||small-1 ||--||medium-1 ||--||large-1||--||large-2||
+   |+--------+|  |+---------+|  |+-------+|  |+-------+|
+   |   ANE    |  |    ANE    |  |   ANE   |  |   ANE   |
+   +----------+  +-----------+  +----|----+  +---------+
+    On premise    site-radio         |
+                  edge node          |
+   +----------+                      |
+   |          |                      |
+   |+--------+|                      |
+   ||small-2 ||----------------------+
+   |+--------+|
+   |   ANE    |
+   +--|-------+
+      |On premise
+      |
+      C
+
+                Figure 3: Example Use Case for Service Edge.
+
+   Based on the reference scenario (Figure 3), Figure 4 shows fictitious
+   TIFSA property types for entities of domain type "ane":
 
      +--------+------------+-------+-----+------+------+-----+---+---+
      | flavor |  type (T)  | inter | f-c | f-ra | f-di | f-b | S | A |
@@ -439,53 +515,92 @@ Table of Contents
      |   2    | intensive  |  Gbps |     |  GB  |  GB  | bps |   |   |
      +--------+------------+-------+-----+------+------+-----+---+---+
 
-                        Figure 2: ALTO Property Map.
+                        Figure 4: ALTO Property Map.
 
-   The following example uses ALTO's filtered property map to request
-   properties "type", "cpu", "ram", and "disk" on five ANE flavors named
-   "small-1", "small-2", "medium-1", "large-1", "large-2" defined in the
-   example before.
+   Subsequently, an ALTO client may request flavor(s) information from
+   source [A] to destinations [B,C].  The following is a simplified
+   example of an ALTO client request and the corresponding response.
+   Note that the response consists of two parts: (i) ANE array for each
+   source and destination pair (out of the scope of this document), and
+   (ii) the requested properties of ANEs.
 
-     POST /propmap/lookup/ane-flavor-name HTTP/1.1
-     Host: alto.example.com
-     Accept: application/alto-propmap+json,application/alto-error+json
-     Content-Length: 155
-     Content-Type: application/alto-propmapparams+json
-     {
-       "entities" : ["small-1",
-                     "small-2",
-                     "medium-1",
-                     "large-1"],
-                     "large-2"],
-       "properties" : [ "type", "cpu", "ram", "disk"]
+   POST /costmap/pv HTTP/1.1
+   Host: alto.example.com
+   Accept: multipart/related;type=application/alto-costmap+json,
+           application/alto-error+json
+   Content-Length: 163
+   Content-Type: application/alto-costmapfilter+json
+
+   {
+     "cost-type": {
+       "cost-mode": "array",
+       "cost-metric": "ane-path"
+     },
+     "pids": {
+       "srcs": [ "A" ],
+       "dsts": [ "B", "C" ]
+     },
+     "ane-property-names": [
+       "type",
+       "cpu",
+       "ram",
+       "disk"
+     ]
+   }
+
+   HTTP/1.1 200 OK
+   Content-Length: 952
+   Content-Type: multipart/related; boundary=example-1;
+                 type=application/alto-costmap+json
+
+   Content-ID: <costmap@alto.example.com>
+   Content-Type: application/alto-costmap+json
+
+   {
+     "meta": {
+       "vtag": {
+         "resource-id": "filtered-cost-map-pv.costmap",
+         "tag": "d827f484cb66ce6df6b5077cb8562b0a"
+       },
+       "dependent-vtags": [
+         {
+           "resource-id": "my-default-networkmap",
+           "tag": "c04bc5da49534274a6daeee8ea1dec62"
+         }
+       ],
+       "cost-type": {
+         "cost-mode": "array",
+         "cost-metric": "ane-path"
+       }
+     },
+     "cost-map": {
+       "A": {
+         "B": [ "small-1", "medium-1"],
+         "C": [ "small-1", "medium-1", "large-1", "small-2" ]
+       }
      }
+   }
 
-     HTTP/1.1 200 OK
-     Content-Length: 295
-     Content-Type: application/alto-propmap+json
-     {
+   Content-ID: <propmap@alto.example.com>
+   Content-Type: application/alto-propmap+json
+
+   {
        "meta" : {
        },
        "property-map": {
-         "small-1":
+         ".ane:small-1":
            {"type" : "basic", "cpu" : 1,
              "ram" : "512MB", "disk" : 1GB},
-         "small-2":
+         ".ane:small-2":
            {"type" : "network-intensive", "cpu" : 1,
              "ram" : "512MB", "disk" : 1GB},
-         "medium-1":
+         ".ane:medium-1":
            {"type" : "compute-intensive", "cpu" : 2,
              "ram" : "4GB", "disk" : 40GB},
-         "large-1":
-           {"type" : "compute-intensive", "cpu" : 4,
-             "ram" : "8GB", "disk" : 80GB},
-         "large-2":
-           {"type" : "compute-intensive", "cpu" : 8,
-             "ram" : "16GB", "disk" : 160GB},
-       }
-     }
-
-               Figure 3: Filtered Property Map query example.
+         ".ane:large-1":
+          {"type" : "compute-intensive", "cpu" : 4,
+            "ram" : "8GB", "disk" : 80GB}
+      }    }
 
 6.  Use Cases
 
@@ -549,6 +664,85 @@ Table of Contents
    Thus, service/application orchestrators can benefit from the
    information exposed by ALTO at the time of deciding the placement of
    the microservices in the network.
+
+6.3.  Distributed AI Workloads
+
+   Generative AI is a technological feat that opens up many applications
+   such as holding conversations, generating art, developing a research
+   paper, or writing software, among many others.  Yet this innovation
+   comes with a high cost in terms of processing and power consumption.
+   While data centers are already running at capacity, it is projected
+   that transitioning current search engine queries to leverage
+   generative AI will increase costs by 10 times compared to traditional
+   search methods [DC-AI-COST].  As (1) computing nodes (CPUs and GPUs)
+   are deployed to build the edge cloud through technologies like 5G and
+   (2) with billions of mobile user devices globally providing a large
+   untapped computational platform, shifting part of the processing from
+   the cloud to the edge becomes a viable and necessary step towards
+   enabling the AI-transition.  There are at least four drivers
+   supporting this trend:
+
+   *  Computational and energy savings: Due to savings from not needing
+      large-scale cooling systems and the high performance-per-watt
+      efficiency of the edge devices, some workloads can run at the edge
+      at a lower computational and energy cost [EDGE-ENERGY], especially
+      when considering not only processing but also data transport.
+
+   *  Latency: For applications such as driverless vehicles which
+      require real-time inference at very low latency, running at the
+      edge is necessary.
+
+   *  Reliability and performance: Peaks in cloud demand for generative
+      AI queries can create large queues and latency, and in some cases
+      even lead to denial of service.  In some cases, limited or no
+      connectivity requires running the workloads at the edge.
+
+   *  Privacy, security, and personalization: A "private mode" allows
+      users to strictly utilize on-device (or near-the-device) AI to
+      enter sensitive prompts to chatbots, such as health questions or
+      confidential ideas.
+
+   These drivers lead to a distributed computational model that is
+   hybrid: Some AI workloads will fully run in the cloud, some will
+   fully run in the edge, and some will run both in the edge and in the
+   cloud.  Being able to efficiently run these workloads in this hybrid,
+   distributed, cloud-edge environment is necessary given the
+   aforementioned massive energy and computational costs.  To make
+   optimized service and workload placement decisions, information about
+   both the compute and communication resources available in the network
+   is necessary too.
+
+   Consider as an example a large language model (LLM) used to generate
+   text and hold intelligent conversations.  LLMs produce a single token
+   per inference, where a token is almost equivalent to a word.
+   Pipelining and parallelization techniques are used to optimize
+   inference, but this means that a model like GPT-3 could potentially
+   go through all 175 billion parameters that are part of it to generate
+   a single word.  To efficiently run these computational-intensive
+   workloads, it is necessary to know the availability of compute
+   resources in the distributed system.  Suppose that a user is driving
+   a car while conversing with an AI model.  The model can run inference
+   on a variety of compute nodes, ordered from lower to higher compute
+   power as follows: (1) the user's phone, (2) the computer in the car,
+   (3) the 5G edge cloud, and (4) the datacenter cloud.
+   Correspondingly, the system can deploy four different models with
+   different levels of precision and compute requirements.  The simplest
+   model with the least parameters can run in the phone, requiring less
+   compute power but yielding lower accuracy.  Three other models
+   ordered in increasing value of accuracy and computational complexity
+   can run in the car, the edge, and the cloud.  The application can
+   identify the right trade-off between accuracy and computational cost,
+   combined with metrics of communication bandwidth and latency, to make
+   the right decision on which of the four models to use for every
+   inference request.  Note that this is similar to the resolution/
+   bandwidth trade-off commonly found in the image encoding problem,
+   where an image can be encoded and transmitted at different levels of
+   resolution depending on the available bandwidth in the communication
+   channel.  In the case of AI inference, however, not only bandwidth is
+   a scarce resource, but also compute.  ALTO extensions to support the
+   exposure of compute resources would allow applications to make
+   optimized decisions on selecting the right computational resource,
+   supporting the efficient execution of hybrid AI workloads.
 
 7.  Security Considerations
 
@@ -635,9 +829,22 @@ Table of Contents
    [LF-EDGE]  "Linux Foundation Edge", https://www.lfedge.org/ , March
               2023.
 
+   [EDGE-ENERGY]
+              "Estimating energy consumption of cloud, fog, and edge
+              computing infrastructures", IEEE Transactions on
+              Sustainable Computing , 2019.
+
+   [DC-AI-COST]
+              "Generative AI Breaks The Data Center - Data Center
+              Infrastructure And Operating Costs Projected To Increase
+              To Over $76 Billion By 2028", Forbes, Tirias Research
+              Report , 2023.
+
 Acknowledgments
 
-   TODO acknowledge.
+   The work of Luis M.  Contreras has been partially funded by the
+   European Union under the Horizon Europe project CODECO (COgnitive,
+   Decentralised Edge- Cloud Orchestration), grant number 101092696.
 
 Authors' Addresses
 
