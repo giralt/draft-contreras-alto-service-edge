@@ -96,6 +96,15 @@ informative:
     title : Linux Foundation Edge
     seriesinfo : https://www.lfedge.org/
     date : Accessed March 2023
+  EDGE-ENERGY:
+    title : Estimating energy consumption of cloud, fog, and edge computing infrastructures
+    seriesinfo : IEEE Transactions on Sustainable Computing
+    date : 2019
+  DC-AI-COST:
+    title : Generative AI Breaks The Data Center - Data Center Infrastructure And Operating Costs Projected To Increase To Over $76 Billion By 2028
+    seriesinfo : Forbes, Tirias Research Report
+    date : 2023
+
 
 --- abstract
 
@@ -169,7 +178,7 @@ for assisting such a decision.
 
 The compute needs for an application or service function are typically set in terms of certain requirements in terms of processing capabilities (i.e., CPU), as well as volatile memory (i.e., RAM) and storage capacity. There are two ways of considering those needs: either as individual values for each of the resources, or as a pre-defined bundle of them in the form of instance or compute flavor.
 
-## Working with compute resource values 
+## Working with compute resource values
 
 Compute resource values can be obtained from cloud manager systems able to provide information about compute resources in a given compute node. These cloud manager systems typically provide information about total resources in the compute node and either the used or the allocatable resources. This information can be leveraged for taking application or service function placement decisions from the compute capability perspective.
 Each cloud management system has their own schema of information to be provided. In general terms, information about CPU, memory and storage can be provided, together with the identifiers of the compute node and some other system information. Examples of these cloud management systems are Kubernetes, OpenStack and OpenNebula.
@@ -591,7 +600,8 @@ whereas edge clouds involve a complex ecosystem of operators,
 vendors, and application providers, all striving to provide
 a quality end-to-end solution to the user. This implies that,
 while the traditional cloud has been implemented for the most part
-by using vertically optimized and closed architectures, the edge will necessarily need to rely on a complete ecosystem of carefully
+by using vertically optimized and closed architectures, the edge will
+necessarily need to rely on a complete ecosystem of carefully
 designed open standards to enable horizontal interoperability
 across all the involved parties.
 This document envisions ALTO playing a role as part of the
@@ -624,9 +634,83 @@ use case.
 
 ## Optimized placement of microservice components
 
-Current applications are transitioning from a monolithic service architecture towards the composition of microservice components, following cloud-native trends. The set of microservices can have associated SLOs which impose constraints not only in terms of required compute resources (CPU, storage, ...) dependent on the compute facilities available, but also in terms of performance indicators such as latency, bandwidth, etc, which impose restrictions in the networking capabilities connecting the computing facilities. Even more complex constrains, such as affinity among certain microservices components could require complex calculations for selecting the most appropriate compute nodes taken into consideration both network and compute information.
+Current applications are transitioning from a monolithic service architecture
+towards the composition of microservice components, following cloud-native
+trends. The set of microservices can have associated SLOs which impose
+constraints not only in terms of required compute resources (CPU, storage, ...)
+dependent on the compute facilities available, but also in terms of performance
+indicators such as latency, bandwidth, etc, which impose restrictions in the
+networking capabilities connecting the computing facilities. Even more complex
+constrains, such as affinity among certain microservices components could
+require complex calculations for selecting the most appropriate compute nodes
+taken into consideration both network and compute information.
 
-Thus, service/application orchestrators can benefit from the information exposed by ALTO at the time of deciding the placement of the microservices in the network.
+Thus, service/application orchestrators can benefit from the information exposed
+by ALTO at the time of deciding the placement of the microservices in the network.
+
+## Distributed AI Workloads
+
+Generative AI is a technological feat that opens up many applications such as holding
+conversations, generating art, developing a research paper, or writing software, among
+many others. Yet this innovation comes with a high cost in terms of processing and power
+consumption. While data centers are already running at capacity, it is projected
+that transitioning current search engine queries to leverage generative AI will
+increase costs by 10 times compared to traditional search methods {{DC-AI-COST}}. As (1) computing
+nodes (CPUs and GPUs) are deployed to build the edge cloud through
+technologies like 5G and (2) with billions of mobile user devices globally providing a large
+untapped computational platform, shifting part of the processing from the cloud to the
+edge becomes a viable and necessary step towards enabling the AI-transition.
+There are at least four drivers supporting this trend:
+
+- Computational and energy savings: Due to savings from not needing
+large-scale cooling systems and the high performance-per-watt
+efficiency of the edge devices, some workloads can run at the edge
+at a lower computational and energy cost [EDGE-ENERGY], especially when
+considering not only processing but also data transport.
+
+- Latency: For applications such as driverless vehicles which require real-time
+inference at very low latency, running at the edge is necessary.
+
+- Reliability and performance: Peaks in cloud demand for generative AI queries can
+create large queues and latency, and in some cases even lead to denial of service.
+In some cases, limited or no connectivity requires running the workloads at the edge.
+
+- Privacy, security, and personalization: A "private mode" allows users to strictly
+utilize on-device (or near-the-device) AI to enter sensitive prompts to chatbots,
+such as health questions or confidential ideas.
+
+These drivers lead to a distributed computational model that is hybrid: Some AI workloads
+will fully run in the cloud, some will fully run in the edge, and some will run both in the
+edge and in the cloud. Being able to efficiently run these workloads in this hybrid,
+distributed, cloud-edge environment is necessary given the aforementioned massive energy
+and computational costs. To make optimized service and workload placement decisions, information
+about both the compute and communication resources available in the network is necessary too.
+
+Consider as an example a large language model (LLM) used to generate text and hold intelligent
+conversations. LLMs produce a single token per inference, where a token is almost equivalent
+to a word. Pipelining and parallelization techniques are used to optimize inference, but
+this means that a model like GPT-3 could potentially go through all 175 billion parameters
+that are part of it to generate a single word. To efficiently run these computational-intensive
+workloads, it is necessary to know the availability of compute resources in the distributed
+system. Suppose that a user is driving a car while conversing with an AI model. The model
+can run inference on a variety of compute nodes, ordered from lower to higher compute power
+as follows: (1) the user's phone, (2) the computer in the car, (3) the 5G edge cloud,
+and (4) the datacenter cloud. Correspondingly, the system can deploy four different models
+with different levels of precision and compute requirements. The simplest model with the
+least parameters can run in the phone, requiring less compute power but yielding lower
+accuracy. Three other models ordered in increasing value of accuracy and computational
+complexity can run in the car, the edge, and the cloud. The application can identify the
+right trade-off between accuracy and computational cost, combined with metrics of
+communication bandwidth and latency, to make the right decision on which of the four
+models to use for every inference request. Note that this is similar to the
+resolution/bandwidth trade-off commonly found in the image encoding problem, where an
+image can be encoded and transmitted at different levels of resolution depending on the
+available bandwidth in the communication channel. In the case of AI inference, however,
+not only bandwidth is a scarce resource, but also compute. ALTO extensions to support
+the exposure of compute resources would allow applications to make optimized decisions
+on selecting the right computational resource, supporting the efficient execution of hybrid
+AI workloads.
+
 
 # Security Considerations
 
