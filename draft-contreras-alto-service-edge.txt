@@ -85,6 +85,7 @@ Table of Contents
    3.  Computing Needs
      3.1.  Working with compute resource values
      3.2.  Working with compute flavors
+     3.3.  ALTO to support abstracted compute information
    4.  Usage of ALTO for Service Placement
      4.1.  Integrating Compute Information in ALTO
      4.2.  Association of Compute Capabilities to Network Topology
@@ -244,6 +245,22 @@ Figure 1: Compute resource information from well known cloud managers
       the application.
 
    The naming convention of an instance is thus encoded as TIFSA.
+
+3.3.  ALTO to support abstracted compute information
+
+   Examples in sections 3.1 in particular Figure 1 stress the need to
+   abstract these values for the sake of harmonization and ALTO could
+   provide the information services to do so.  Abstraction is also
+   needed to (i) aggregate values for simplicity or scalability and (ii)
+   support potential confidentiality needs of data center management
+   entity.  To specify the ALTO metrics relevant to compute
+   capabilities, an exercise similar to the RFC-9439 to be
+   [I-D.ietf-alto-performance-metrics] would be useful.  The initial
+   metrics could be taken from different standardization bodies or cloud
+   providers or IETF working groups.  Besides, metrics reflecting energy
+   consumption of application deployment footprint also need to be
+   considered, given the expected massive usage of ML/AI and the current
+   context urging to optimize energy consumption.
 
 4.  Usage of ALTO for Service Placement
 
@@ -790,6 +807,14 @@ Figure 1: Compute resource information from well known cloud managers
               Optimization (ALTO): Entity Property Maps", RFC 9240,
               DOI 10.17487/RFC9240, July 2022,
               <https://www.rfc-editor.org/info/rfc9240>.
+
+   [I-D.ietf-alto-performance-metrics]
+              Wu, Q., Yang, Y. R., Lee, Y., Dhody, D., Randriamasy, S.,
+              and L. M. Contreras, "ALTO Performance Cost Metrics", Work
+              in Progress, Internet-Draft, draft-ietf-alto-performance-
+              metrics-28, 21 March 2022,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-alto-
+              performance-metrics-28>.
 
    [I-D.ietf-teas-sf-aware-topo-model]
               Bryskin, I., Liu, X., Lee, Y., Guichard, J., Contreras, L.
