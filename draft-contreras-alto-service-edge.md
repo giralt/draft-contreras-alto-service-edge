@@ -72,6 +72,7 @@ normative:
   RFC7752:
   RFC9275:
   RFC9240:
+  I-D.ietf-alto-performance-metrics:
   I-D.ietf-teas-sf-aware-topo-model:
   I-D.llc-teas-dc-aware-topo-model:
 
@@ -252,6 +253,23 @@ Used to specify acceleration capabilities for
 improving the performance of the application.
 
 The naming convention of an instance is thus encoded as TIFSA.
+
+## ALTO to support abstracted compute information
+
+Examples in sections 3.1  in particular Figure 1 stress the need
+to abstract these values for the sake of harmonization and ALTO
+could provide the information services to do so. Abstraction is
+also needed to (i) aggregate values for simplicity or scalability
+and (ii) support potential confidentiality needs of data center
+management entity.  To specify the ALTO metrics relevant to compute
+capabilities, an exercise similar to the RFC-9439 to be {{I-D.ietf-alto-performance-metrics}}
+would be useful. The initial metrics could be taken from different
+standardization bodies or cloud providers or IETF working groups.
+Besides, metrics reflecting energy consumption of application
+deployment footprint also need to be considered, given the expected
+massive usage of ML/AI and the current context urging to optimize
+energy consumption.
+
 
 # Usage of ALTO for Service Placement
 
