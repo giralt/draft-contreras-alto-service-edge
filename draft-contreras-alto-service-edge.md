@@ -43,7 +43,7 @@ author:
  -
     fullname: Luis M. Contreras
     organization: Telefonica
-    email: luismiguel.conterasmurillo@telefonica.com
+    email: luismiguel.contrerasmurillo@telefonica.com
 
  -
     fullname: Sabine Randriamasy
